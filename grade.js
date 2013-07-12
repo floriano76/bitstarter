@@ -18,11 +18,11 @@ var assertFileExists = function(infile) {
 
 var webpage_fetch = function(url, json) {
     rest.get(url).on('complete', function(response){
-	if(response) {
-	    checkUrl(response, json);
-	} else {
-	    console.log("%s does not exist. Exiting. ", instr);
+	if (response instanceof Error) {
+	    console.log("%s does not exist. Exiting. ", url);
 	    process.exit(1); // http://node.js/api/process.html#process_process_exit_code
+	} else {
+	    checkUrl(response, json);		
 	}	
     });
 };
